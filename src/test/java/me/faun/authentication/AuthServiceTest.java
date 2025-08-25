@@ -17,7 +17,9 @@ class AuthServiceTest {
     private final AuthService authService = new AuthService(accountStorage);
 
     @Test
-    void login() {
+    void loginWithIncorrectCredentials() {
+        boolean inCorrectCredentials = authService.login("dasdasdas", "testpassworrddd1");
+        assertFalse(inCorrectCredentials);
     }
 
     @Test
