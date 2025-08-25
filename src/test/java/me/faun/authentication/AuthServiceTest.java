@@ -37,7 +37,30 @@ class AuthServiceTest {
     }
 
     @Test
-    void verifyPassword() {
+    void loginWithInvalidPassword() {
+        authService.register("morganMalay", "morganMalay@gmail.com", "morganMalay022!");
+        boolean invalidPassword = authService.login("morganMalay", "morgan1123");
+        assertFalse(invalidPassword);
+    }
+
+    @Test
+    void registerNewAccount() {
+        authService.register("morganMalay", "morganMalay@gmail.com", "$2a$12$testUserHashExample1234567890abcdedd");
+        boolean newAccount = authService.login("morganMalay", "$2a$12$testUserHashExample1234567890abcdedd");
+        assertTrue(newAccount);
+    }
+    @Test
+    void registeredInvalidEmail(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            authService.register("morganMalay","morganMalaygmail.com","morganMalay022!");
+        });
+    }
+
+    @Test
+    void loginRegisteredExistingUsername() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            authService.register("testUser", "morganMalay@gmail.com", "morganMalay022");
+        });
     }
 }
 
