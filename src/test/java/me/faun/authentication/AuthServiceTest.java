@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import me.faun.authentication.models.Account;
 import me.faun.authentication.storage.AccountStorage;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class AuthServiceTest {
 
     private final AccountStorage accountStorage = new MockAccountStorage();
