@@ -1,11 +1,14 @@
 package me.faun.authentication;
 
+import me.faun.authentication.models.Account;
 import me.faun.authentication.storage.AccountStorage;
 import me.faun.authentication.util.ValidationUtils;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.UUID;
+import java.time.Instant;
 
 public class AuthService {
     private final AccountStorage accountStorage;
@@ -30,6 +33,14 @@ public class AuthService {
         if (accountStorage.exists(username)) {
             throw new IllegalArgumentException("Username already exists");
         }
+
+        accountStorage.save(new Account(
+                UUID.randomUUID().toString(),
+                username,
+                email,
+                hashPassword(password),
+                Instant.now().toString(),
+                Instant.now().toString()));
         return true;
     }
 
