@@ -31,7 +31,7 @@ class AuthServiceTest {
 }
 
 class MockAccountStorage implements AccountStorage {
-    private final List<Account> accounts = Arrays.asList(
+    private final List<Account> accounts = new java.util.ArrayList<>(Arrays.asList(
             new Account(
                     "unique-id-123",
                     "testUser",
@@ -45,7 +45,7 @@ class MockAccountStorage implements AccountStorage {
                     "anotherUser@example.com",
                     "$2a$10$anotherUserHashExample0987654321abcdefg", // mock hash
                     "2023-10-02T12:00:00Z",
-                    "2023-10-02T12:00:00Z"));
+                    "2023-10-02T12:00:00Z")));
 
     @Override
     public Optional<Account> findByUsername(String username) {
@@ -59,6 +59,6 @@ class MockAccountStorage implements AccountStorage {
 
     @Override
     public void save(Account account) {
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        accounts.add(account);
     }
 }
