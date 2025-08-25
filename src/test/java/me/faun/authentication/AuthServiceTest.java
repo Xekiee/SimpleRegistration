@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AuthServiceTest {
 
     private final AccountStorage accountStorage = new MockAccountStorage();
+    private final AuthService authService = new AuthService(accountStorage);
 
     @Test
     void login() {
