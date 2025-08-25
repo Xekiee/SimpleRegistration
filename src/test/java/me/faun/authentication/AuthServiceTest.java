@@ -23,11 +23,17 @@ class AuthServiceTest {
     }
 
     @Test
-    void register() {
+    void loginWithCorrectCredentials() {
+        authService.register("morganMalay", "morganMalay@gmail.com", "morganMalay022!");
+        boolean correctCredentials = authService.login("morganMalay", "morganMalay022!");
+        assertTrue(correctCredentials);
     }
 
     @Test
-    void hashPassword() {
+    void loginWithInvalidUsername() {
+        authService.register("morganMalay", "morganMalay@gmail.com", "morganMalay022!");
+        boolean invalidUsername = authService.login("dasdasda", "morganMalay022!");
+        assertFalse(invalidUsername);
     }
 
     @Test
