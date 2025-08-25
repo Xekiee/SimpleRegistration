@@ -2,14 +2,11 @@ package me.faun;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import me.faun.authentication.AuthService;
-import me.faun.authentication.models.Account;
 import me.faun.authentication.storage.AccountStorage;
 import me.faun.authentication.storage.CsvAccountStorage;
 
 import javax.swing.*;
 import java.awt.*;
-import java.time.Instant;
-import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
@@ -72,16 +69,6 @@ public class Main {
                 String password = new String(regPassword.getPassword());
 
                 if (authService.register(username, email, password)) {
-                    String now = Instant.now().toString();
-                    Account account = new Account(
-                            UUID.randomUUID().toString(),
-                            username,
-                            email,
-                            authService.hashPassword(password),
-                            now,
-                            now
-                    );
-                    storage.save(account);
                     JOptionPane.showMessageDialog(frame, "Registration successful!");
                 } else {
                     JOptionPane.showMessageDialog(frame, "Registration failed!", "Error", JOptionPane.ERROR_MESSAGE);
