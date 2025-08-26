@@ -45,20 +45,90 @@ class AuthServiceTest {
     }
 
     @Test
+    void loginWithEmptyUsernameAndPassword(){
+        authService.register("validUsername", "morganMalay@gmail.com", "validPassword1!");
+        boolean emptyUsernamePassword = authService.login("", "");
+        assertFalse(emptyUsernamePassword);
+    }
+
+    @Test
+    void loginWithEmptyUsername(){
+        authService.register("validUsername", "morganMalay@gmail.com", "validPassword1!");
+        boolean emptyUsername = authService.login("", "validPassword1!");
+        assertFalse(emptyUsername);
+    }
+
+    @Test
+    void loginWithEmptyPassword(){
+        authService.register("validUsername", "morganMalay@gmail.com", "validPassword1!");
+        boolean emptyPassword = authService.login("validUsername", "");
+        assertFalse(emptyPassword);
+    }
+
+    @Test
     void registerNewAccount() {
-        authService.register("morganMalay", "morganMalay@gmail.com", "$2a$12$testUserHashExample1234567890abcdedd");
-        boolean newAccount = authService.login("morganMalay", "$2a$12$testUserHashExample1234567890abcdedd");
+        authService.register("validUsername", "morganMalay@gmail.com", "validPassword1!");
+        boolean newAccount = authService.login("validUsername", "validPassword1!");
         assertTrue(newAccount);
     }
+
     @Test
-    void registeredInvalidEmail(){
+    void registerNewAccountWithEmptyCredentials(){
         assertThrows(IllegalArgumentException.class, () -> {
-            authService.register("morganMalay","morganMalaygmail.com","morganMalay022!");
+            authService.register("","","");
         });
     }
 
     @Test
-    void loginRegisteredExistingUsername() {
+    void registerNewAccountWithEmptyEmail(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            authService.register("validUsername","","validPassword1!");
+        });
+    }
+
+    @Test
+    void registerNewAccountWithEmptyUsername(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            authService.register("","morganMalay@gmail.com","$2a$12$testUserHashExample1234567890abcdedd");
+        });
+    } //Failed
+
+    @Test
+    void registerNewAccountWithEmptyPassword(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            authService.register("validUsername","morganMalay@gmail.com","");
+        });
+    }
+
+    @Test
+    void registerNewAccountWithEmptyUsernameEmail(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            authService.register("","","morganMalay022!");
+        });
+    }
+
+    @Test
+    void registerNewAccountWithEmptyUsernamePassword(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            authService.register("","morganMalay@gmail.com","");
+        });
+    }
+
+    @Test
+    void registerNewAccountWithEmptyEmailPassword(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            authService.register("validUsername","","");
+        });
+    }
+    @Test
+    void registerInvalidEmail(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            authService.register("validUsername","invalidEmail","validPassword1!");
+        });
+    }
+
+    @Test
+    void registerWithExistingUsername() {
         assertThrows(IllegalArgumentException.class, () -> {
             authService.register("testUser", "morganMalay@gmail.com", "morganMalay022");
         });
