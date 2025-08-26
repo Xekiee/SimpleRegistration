@@ -18,28 +18,29 @@ class AuthServiceTest {
 
     @Test
     void loginWithIncorrectCredentials() {
-        boolean inCorrectCredentials = authService.login("dasdasdas", "testpassworrddd1");
+        authService.register("morganMalay", "morganMalay@gmail.com", "morganMalay022!");
+        boolean inCorrectCredentials = authService.login("invalidcredential", "invalidcredential");
         assertFalse(inCorrectCredentials);
     }
 
     @Test
     void loginWithCorrectCredentials() {
-        authService.register("morganMalay", "morganMalay@gmail.com", "morganMalay022!");
-        boolean correctCredentials = authService.login("morganMalay", "morganMalay022!");
+        authService.register("validUsername", "morganMalay@gmail.com", "validPassword1!");
+        boolean correctCredentials = authService.login("validUsername", "validPassword1!");
         assertTrue(correctCredentials);
     }
 
     @Test
     void loginWithInvalidUsername() {
-        authService.register("morganMalay", "morganMalay@gmail.com", "morganMalay022!");
-        boolean invalidUsername = authService.login("dasdasda", "morganMalay022!");
+        authService.register("validUsername", "morganMalay@gmail.com", "validPassword1!");
+        boolean invalidUsername = authService.login(" InvalidUsername", "validPassword1!");
         assertFalse(invalidUsername);
     }
 
     @Test
     void loginWithInvalidPassword() {
-        authService.register("morganMalay", "morganMalay@gmail.com", "morganMalay022!");
-        boolean invalidPassword = authService.login("morganMalay", "morgan1123");
+        authService.register("validUsername", "morganMalay@gmail.com", "validPassword1!");
+        boolean invalidPassword = authService.login("validUsername", "InvalidPassword");
         assertFalse(invalidPassword);
     }
 
