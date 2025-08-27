@@ -12,6 +12,7 @@ public class ValidationUtils {
         return password != null && password.matches(PASSWORD_REGEX);
     }
 
+
     public static String getPasswordRequirements() {
         return """
                 Password must:

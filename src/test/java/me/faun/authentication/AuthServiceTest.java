@@ -91,7 +91,7 @@ class AuthServiceTest {
         assertThrows(IllegalArgumentException.class, () -> {
             authService.register("","morganMalay@gmail.com","$2a$12$testUserHashExample1234567890abcdedd");
         });
-    } //Failed
+    } //Found Bug
 
     @Test
     void registerNewAccountWithEmptyPassword(){
